@@ -1,0 +1,1421 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>marketian.site — Premium Social Media Services</title>
+    <meta name="description" content="Premium social media services for Instagram, Facebook, Twitter, TikTok, YouTube and Snapchat. Account recovery, verification, unbanning, and growth services.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg1: #0f1021;
+            --bg2: #1b1f3b;
+            --bg3: #2d325a;
+            --accent: #00D4FF;
+            --accent-2: #7C5CFC;
+            --border: rgba(255,255,255,.12);
+            --text: #e9f0ff;
+            --muted: #a9b5d9;
+            --shadow: 0 10px 30px rgba(0,0,0,.35);
+            --radius: 22px;
+            
+            /* Light mode variables */
+            --light-bg1: #f0f5ff;
+            --light-bg2: #e4ecff;
+            --light-bg3: #d5e1ff;
+            --light-text: #1a202c;
+            --light-muted: #4a5568;
+            --light-border: rgba(0,0,0,.08);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Outfit', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            color: var(--text);
+            background: radial-gradient(1200px 600px at 10% -10%, #0ea5e9 0%, transparent 60%),
+                        radial-gradient(1000px 500px at 110% 10%, #8b5cf6 0%, transparent 60%),
+                        radial-gradient(900px 500px at 20% 100%, #14b8a6 0%, transparent 60%),
+                        linear-gradient(130deg, var(--bg1), var(--bg2) 50%, var(--bg3));
+            background-attachment: fixed;
+            overflow-x: hidden;
+            line-height: 1.6;
+            transition: background-color 0.5s ease, color 0.3s ease;
+        }
+        
+        body.light-mode {
+            --text: var(--light-text);
+            --muted: var(--light-muted);
+            --border: var(--light-border);
+            background: radial-gradient(1200px 600px at 10% -10%, #bae6fd 0%, transparent 60%),
+                        radial-gradient(1000px 500px at 110% 10%, #c7d2fe 0%, transparent 60%),
+                        radial-gradient(900px 500px at 20% 100%, #a7f3d0 0%, transparent 60%),
+                        linear-gradient(130deg, var(--light-bg1), var(--light-bg2) 50%, var(--light-bg3));
+        }
+        
+        .noise {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: .08;
+            mix-blend-mode: overlay;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160"><filter id="n"><feTurbulence baseFrequency="0.85" numOctaves="2" seed="2"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.6"/></svg>');
+        }
+        
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(17,20,37,.9), rgba(17,20,37,.55));
+            border-bottom: 1px solid var(--border);
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+        
+        body.light-mode header {
+            background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.55));
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+        
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .brand {
+            font-weight: 900;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
+        
+        body.light-mode .brand {
+            color: var(--light-text);
+        }
+/* Instagram icon styles - NEW */
+        .instagram-header-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+            margin: 0 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .instagram-header-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .instagram-header-icon:active {
+            transform: scale(0.95);
+        }
+        
+        .instagram-header-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: white;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+        
+        /* Theme toggle moved to header - NEW */
+        .header-theme-toggle {
+            position: relative;
+            z-index: 100;
+        }
+        
+        .header-theme-toggle .theme-label {
+            display: block;
+            width: 60px;
+            height: 30px;
+            background: var(--bg3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode .header-theme-toggle .theme-label {
+            background: #e2e8f0;
+        }
+        
+        .header-theme-toggle .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .header-theme-toggle #theme-switch:checked ~ .theme-label .toggle-thumb {
+            transform: translateX(30px);
+        }
+        
+        .header-theme-toggle .sun, 
+        .header-theme-toggle .moon {
+            position: absolute;
+            top: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 2;
+        }
+        
+        .header-theme-toggle .sun { 
+            left: 8px;
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        
+        .header-theme-toggle #theme-switch:not(:checked) ~ .theme-label .sun {
+            opacity: 1;
+        }
+        
+        .header-theme-toggle #theme-switch:checked ~ .theme-label .sun {
+            opacity: 0.3;
+        }
+        
+        .header-theme-toggle .moon { 
+            right: 8px;
+            color: #e9f0ff;
+            text-shadow: 0 0 5px rgba(233, 240, 255, 0.5);
+        }
+        
+        .header-theme-toggle #theme-switch:checked ~ .theme-label .moon {
+            opacity: 1;
+        }
+        
+        .header-theme-toggle #theme-switch:not(:checked) ~ .theme-label .moon {
+            opacity: 0.3;
+        }
+                
+        .hero {
+            padding: 40px 20px 30px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        body.light-mode .hero h1 {
+            color: var(--light-text);
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        body.light-mode .hero p {
+            color: var(--light-text);
+        }
+        
+        .tag {
+            font-size: .85rem;
+            padding: 6px 12px;
+            border-radius: 999px;
+            background: rgba(255,255,255,.06);
+            border: 1px solid var(--border);
+            color: var(--muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 20px;
+        }
+        
+        body.light-mode .tag {
+            background: rgba(0,0,0,.04);
+            color: var(--light-muted);
+        }
+        
+        .shield-icon {
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            padding: 20px;
+        }
+        
+        @media (max-width: 920px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 18px 14px 10px;
+            }
+            
+            .services li {
+                padding: 10px 12px;
+                font-size: 0.95rem;
+            }
+        }
+        
+        .card {
+            background: linear-gradient(180deg, rgba(17,20,37,.92), rgba(17,20,37,.75));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px 18px 12px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        body.light-mode .card {
+            background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.85));
+            border: 1px solid rgba(0,0,0,.08);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .badge {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            background: linear-gradient(135deg, #f59e0b, #fcd34d);
+            color: #1f2937;
+            font-size: .75rem;
+            border-radius: 999px;
+            padding: 4px 10px;
+            font-weight: 800;
+        }
+        
+        ul.services {
+            list-style: none;
+            margin: 12px 0;
+            padding: 0;
+            display: grid;
+            gap: 10px;
+        }
+        
+        .services li {
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            background: rgba(255,255,255,.02);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+        
+        body.light-mode .services li {
+            background: rgba(0,0,0,.02);
+            border: 1px solid rgba(0,0,0,.08);
+        }
+        
+        .services li:hover {
+            border-color: #7c5cfc44;
+            background: rgba(124,92,252,.08);
+        }
+        
+        body.light-mode .services li:hover {
+            background: rgba(124,92,252,.05);
+        }
+        
+        .details-label {
+            color: var(--accent);
+            font-size: .8rem;
+            font-weight: 600;
+            opacity: .9;
+            white-space: nowrap;
+        }
+        
+        .services li:hover .details-label {
+            color: var(--accent-2);
+            opacity: 1;
+        }
+        
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+            margin: 25px 0;
+        }
+        
+        body.light-mode .divider {
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,.1), transparent);
+        }
+        
+        footer {
+            padding: 40px 32px;
+            color: var(--muted);
+            text-align: center;
+            background: rgba(11, 13, 28, 0.8);
+            margin-top: 30px;
+            border-top: 1px solid var(--border);
+        }
+        
+        body.light-mode footer {
+            background: rgba(240, 245, 255, 0.8);
+            color: var(--light-muted);
+            border-top: 1px solid rgba(0,0,0,.08);
+        }
+        
+        /* Fixed Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.6);
+            display: none;
+            place-items: center;
+            z-index: 999;
+            padding: 20px;
+        }
+        
+        .modal {
+            max-width: 500px;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(17,20,37,.96), rgba(17,20,37,.9));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden; /* Ensures child elements respect border radius */
+        }
+        
+        body.light-mode .modal {
+            background: linear-gradient(180deg, rgba(255,255,255,.96), rgba(255,255,255,.92));
+            border: 1px solid rgba(0,0,0,.1);
+        }
+        
+        .modal header {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            background: rgba(17,20,37,.96); /* Match modal background */
+        }
+        
+        body.light-mode .modal header {
+            background: rgba(255,255,255,.96);
+            border-bottom: 1px solid rgba(0,0,0,.1);
+        }
+        
+        .modal header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        
+        body.light-mode .modal header h4 {
+            color: var(--light-text);
+        }
+        
+        .close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.2s ease;
+        }
+        
+        body.light-mode .close-btn {
+            color: var(--light-text);
+        }
+        
+        .close-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        body.light-mode .close-btn:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        
+        .modal .body {
+            padding: 20px;
+            display: grid;
+            gap: 14px;
+            position: relative;
+            padding-bottom: 70px; /* Space for copy button */
+        }
+        
+        .modal .body p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+        
+        body.light-mode .modal .body p {
+            color: var(--light-muted);
+        }
+        
+        .modal .body strong {
+            color: var(--text);
+        }
+        
+        body.light-mode .modal .body strong {
+            color: var(--light-text);
+        }
+        
+        .fab, .fab-whatsapp {
+            width: 60px;
+            height: 60px;
+            border-radius: 9999px;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,.4);
+            border: 1px solid rgba(255,255,255,.3);
+            transition: transform .15s ease;
+        }
+        
+        .fab {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 60;
+            background: linear-gradient(135deg, #2aabee, #229ED9);
+        }
+        
+        .fab-whatsapp {
+            position: fixed;
+            left: 18px;
+            bottom: 18px;
+            z-index: 60;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+        }
+        
+        .fab:hover, .fab-whatsapp:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
+        
+        .icon {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin: 30px 0 20px;
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        body.light-mode .section-title {
+            color: var(--light-text);
+        }
+        
+        .section-title:after {
+            content: "";
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        h1, h2, h3 {
+            line-height: 1.2;
+        }
+        
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        body.light-mode .card h3 {
+            color: var(--light-text);
+        }
+        
+        /* Theme Toggle - Enhanced Visibility */
+        .theme-toggle {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 100;
+        }
+        
+        #theme-switch { 
+            display: none;
+        }
+        
+        .theme-label {
+            display: block;
+            width: 60px;
+            height: 30px;
+            background: var(--bg3);
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        body.light-mode .theme-label {
+            background: #e2e8f0;
+        }
+        
+        .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        #theme-switch:checked ~ .theme-label .toggle-thumb {
+            transform: translateX(30px);
+        }
+        
+        .sun, .moon {
+            position: absolute;
+            top: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: opacity 0.3s, transform 0.3s;
+            z-index: 2;
+        }
+        
+        .sun { 
+            left: 8px;
+            color: #FFD700;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+        
+        #theme-switch:not(:checked) ~ .theme-label .sun {
+            opacity: 1;
+        }
+        
+        #theme-switch:checked ~ .theme-label .sun {
+            opacity: 0.3;
+        }
+        
+        .moon { 
+            right: 8px;
+            color: #e9f0ff;
+            text-shadow: 0 0 5px rgba(233, 240, 255, 0.5);
+        }
+        
+        #theme-switch:checked ~ .theme-label .moon {
+            opacity: 1;
+        }
+        
+        #theme-switch:not(:checked) ~ .theme-label .moon {
+            opacity: 0.3;
+        }
+        
+        /* Enhanced hover effect */
+        .theme-label:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Modal Copy Button - Moved to Bottom Right */
+        .copy-bottom-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        .copy-bottom-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        
+        .copy-bottom-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .copy-bottom-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        body.light-mode .copy-bottom-btn {
+            color: #fff;
+        }
+        
+        /* Loading spinner for lazy loading */
+        .loader {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 20px auto;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--accent);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 480px) {
+            .fab, .fab-whatsapp {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .icon {
+                width: 24px;
+                height: 24px;
+            }
+            
+            .modal {
+                width: calc(100% - 40px);
+            }
+            
+.copy-bottom-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            /* Instagram icon adjustments for mobile */
+            .instagram-header-icon {
+                width: 32px;
+                height: 32px;
+                margin: 0 10px;
+            }
+            
+            .instagram-header-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+            
+            /* Theme toggle adjustments for mobile */
+            .header-theme-toggle .theme-label {
+                width: 50px;
+                height: 26px;
+            }
+            
+            .header-theme-toggle .toggle-thumb {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .header-theme-toggle #theme-switch:checked ~ .theme-label .toggle-thumb {
+                transform: translateX(24px);
+            }
+            
+            .header-theme-toggle .sun, 
+            .header-theme-toggle .moon {
+                font-size: 14px;
+            }
+        }
+
+        /* Testimonials Section Styles */
+        .testimonials-section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(180deg, rgba(17,20,37,.92), rgba(17,20,37,.75));
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 25px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        body.light-mode .testimonial-card {
+            background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.85));
+            border: 1px solid rgba(0,0,0,.08);
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .testimonial-content {
+            font-style: italic;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            position: relative;
+        }
+        
+        .testimonial-content:before,
+        .testimonial-content:after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.3;
+            line-height: 0;
+            position: absolute;
+        }
+        
+        .testimonial-content:before {
+            top: 0;
+            left: -10px;
+        }
+        
+        .testimonial-content:after {
+            bottom: -20px;
+            right: -10px;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: white;
+        }
+        
+        .author-details {
+            flex: 1;
+        }
+        
+        .author-name {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .author-title {
+            font-size: 0.85rem;
+            color: var(--muted);
+        }
+        
+        body.light-mode .author-title {
+            color: var(--light-muted);
+        }
+        
+        .testimonial-rating {
+            display: flex;
+            margin-bottom: 15px;
+        }
+        
+        .star {
+            color: #FFD700;
+            margin-right: 3px;
+        }
+        
+        .testimonial-service {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            background: rgba(124,92,252,.15);
+            border-radius: 12px;
+            color: var(--accent-2);
+            margin-top: 10px;
+        }
+        
+        /* Testimonial navigation */
+        .testimonials-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        
+        .testimonial-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-dot.active {
+            background: var(--accent);
+            transform: scale(1.2);
+        }
+        
+        body.light-mode .testimonial-dot {
+            background: var(--light-muted);
+        }
+        
+        @media (max-width: 768px) {
+            .testimonials-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .testimonials-section {
+                padding: 40px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                marketian.site
+            </div>
+            
+            <!-- Instagram Icon Added Here -->
+            <div class="instagram-header-icon" onclick="window.open('https://www.instagram.com/marketian.site', '_blank')">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g>
+                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+                    </g>
+                </svg>
+            </div>
+            
+            <!-- Theme Toggle Moved to Header -->
+            <div class="header-theme-toggle">
+                <input type="checkbox" id="theme-switch">
+                <label for="theme-switch" class="theme-label">
+<span class="sun">☀️</span>
+            <span class="moon">🌙</span>
+             <div class="toggle-thumb"></div>
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero container">
+        <h1>Secret Social Media Services</h1>
+        <p>We provides specialized services for for all major platforms. We handle account Take Down, Unban, Recovery, Verifications and much more.</p>
+        <p><span class="tag"><svg class="shield-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><defs><linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7C5CFC"></stop><stop offset="100%" stop-color="#00D4FF"></stop></linearGradient></defs><path fill="url(#shieldGradient)" d="M12 1.5l8.485 3.536v6.215c0 5.334-3.448 10.29-8.485 11.999C6.963 21.541 3.515 16.585 3.515 11.251V5.036L12 1.5z"></path></svg>Trusted • Private • Efficient</span></p>
+    </section>
+
+    <div class="divider" id="servicesDivider"></div>
+    
+    <h2 class="section-title" id="servicesTitle">Our Social Media Services</h2>
+    
+    <section id="services" class="container">
+  <div class="grid" id="servicesGrid">
+    <!-- Services will be rendered from /data/services.json -->
+  </div>
+</section>
+
+    <!-- Testimonials Section -->
+    <div class="divider"></div>
+    
+    <section class="testimonials-section">
+        <h2 class="section-title">Client Testimonials</h2>
+        <p style="text-align: center; max-width: 800px; margin: 0 auto 30px; color: var(--muted);">See what our satisfied clients have to say about our premium social media services</p>
+        
+        <div class="testimonials-container">
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    Marketian helped me recover my Instagram account after it was wrongfully banned. Their team was professional, responsive and delivered exactly what they promised. I couldn't be happier with the service!
+                </div>
+                <span class="testimonial-service">Instagram Account Recovery</span>
+                <div class="testimonial-author">
+                    <div class="author-avatar">S</div>
+                    <div class="author-details">
+                        <div class="author-name">Sarah Johnson</div>
+                        <div class="author-title">Influencer (250K followers)</div>
+                    </div>
+                </div>
+            </div>
+
+<div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    They helped me to take down a YouTube Channel for me which was strong case withing 1M+ Subscribers. Marketian is blezzing fast and they exactly know how to deliver and finish the job.
+                </div>
+                <span class="testimonial-service">YouTube Channel Ban</span>
+                <div class="testimonial-author">
+                    <div class="author-avatar">W</div>
+                    <div class="author-details">
+                        <div class="author-name">William</div>
+                        <div class="author-title">Agency Owner</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    I was skeptical at first, but Marketian delivered exceptional results. They helped me get verified on TikTok and a TikTok Username claim. The process was smooth, and their customer support always give peace of mind and on point updates.
+                </div>
+                <span class="testimonial-service">TikTok Verification and Username Claim</span>
+                <div class="testimonial-author">
+                    <div class="author-avatar">M</div>
+                    <div class="author-details">
+                        <div class="author-name">Michael Chen</div>
+                        <div class="author-title">Content Creator (4M Followers)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    After my YouTube channel was unfairly terminated, Marketian got it reinstated within 24 hours. Their connections at YouTube HQ are legitimate. They are expensive but Worth every penny for my channel.
+                </div>
+                <span class="testimonial-service">YouTube Channel Restoration</span>
+                <div class="testimonial-author">
+                    <div class="author-avatar">R</div>
+                    <div class="author-details">
+                        <div class="author-name">Robert Martinez</div>
+                        <div class="author-title">YouTuber (337K subscribers)</div>
+                    </div>
+                </div>
+            </div>
+
+<div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    The team help me a lot of gain 100K Followers in Instagram smoothly and that's just in 3 days. They have amazing strategies for growth services.
+                </div>
+                <span class="testimonial-service">Instagram Followers Growth</span>
+                <div class="testimonial-author">
+                    <div class="author-avatar">Y</div>
+                    <div class="author-details">
+                        <div class="author-name">Younjosh</div>
+                        <div class="author-title">DJ (500K Followers)</div>
+                </div>
+            </div>
+        </div>
+
+<div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+                <div class="testimonial-content">
+                    Yay! I'm happy with what i paid for. They have brilliant team in world. I literally amazed to get verified on Snapchat in 4 days. Previously 2 guys failed to et me verified but they smash it literally. That Yellow Star shinning on my Snap Account now.
+                </div>
+                <span class="testimonial-service">Snapchat Verification</span>
+                <div class="testimonial-author">
+                    <div class="author-avatar">M</div>
+                    <div class="author-details">
+                        <div class="author-name">Mia Malkova</div>
+                        <div class="author-title">Model (596K followers)</div>
+                    </div>
+                </div>
+            </div>
+            </div></section>
+
+ <!-- FAQ Section added before footer -->
+    <section class="faq-section" style="max-width: 800px; margin: 40px auto 30px auto; padding: 20px 30px; border-radius: 18px; background: rgba(17,20,37,0.94); color: #e9f0ff; border: 1px solid #2d325a; box-shadow: 0 4px 16px rgba(0,0,0,0.12);">
+      <h2 style="font-size: 1.5rem; margin-bottom: 16px;">Frequently Asked Questions</h2>
+      <div style="margin-bottom:14px;">
+        <strong>Q: How do I request a service?</strong><br>
+        A: Click "Click for details" on the desired service, read the details and reach out to us via Telegram or WhatsApp Button.
+      </div>
+      <div style="margin-bottom:14px;">
+        <strong>Q: Are your services guaranteed?</strong><br>
+        A: Success rate varies by platform. We offer honest pre-checks and clear expectations.
+      </div>
+      <div style="margin-bottom:14px;">
+        <strong>Q: Is my privacy protected?</strong><br>
+        A: Yes, client confidentiality is a top priority.
+      </div>
+      <div style="margin-bottom:14px;">
+        <strong>Q: How do I pay for services?</strong><br>
+        A: Payment instructions are provided after your initial inquiry.
+      </div>
+      <div style="margin-bottom:14px;">
+        <strong>Q: Can I get a refund?</strong><br>
+        A: If we failed to provide you service, we'll Refund you Full Amount with no questions ask.
+      </div>
+      <div style="margin-bottom:14px;">
+        <strong>Q: What platforms do you cover?</strong><br>
+        A: Instagram, Facebook, Twitter/X, TikTok, YouTube, Snapchat, Telegram, WhatsApp, LinkedIn, Airbnb, Google, OnlyFans and much more on demand.
+      </div>
+      <div>
+        <strong>Q: How long do services typically take?</strong><br>
+        A: Delivery times are indicated on each service. Most takes from few hours to few days, some faster depending on your case.
+      </div>
+    </section>
+
+ <!-- Legal section added after footer -->
+    <section class="legal-section" style="max-width: 800px; margin: 0 auto 40px auto; padding: 16px 30px; border-radius: 16px; background: rgba(17,20,37,0.92); color: #a9b5d9; border: 1px solid #2d325a; font-size: 0.97rem;">
+      <div style="margin-bottom: 12px;">
+        <a href="/terms-of-service.html" target="_blank" style="color: #00D4FF; text-decoration: underline; margin-right: 18px;">Terms of Service</a>
+        <a href="/privacy-policy.html" target="_blank" style="color: #00D4FF; text-decoration: underline;">Privacy Policy</a>
+      </div>
+      <div style="margin-bottom: 12px;">
+        <strong>Disclaimer:</strong> marketian.site acts only as an intermediary between clients and global network providers. All services depend on third-party policies and terms. We do NOT promote illegal activity. The information here is general guidance. Clients are responsible for following the laws and platform rules in their jurisdiction.
+      </div>
+      <div>
+        By using this site and our services, you acknowledge that you have read and agree to our <a href="/terms-of-service.html" target="_blank" style="color:#00D4FF; text-decoration: underline;">Terms of Service</a>.
+      </div>
+    </section>
+
+    <footer>
+        <p>� 2025 marketian.site — All rights reserved.</p>
+        <p>Premium Social Media Services for Instagram, Facebook, Twitter, TikTok, YouTube and Snapchat</p>
+    </footer>
+
+    <div id="serviceModal" class="modal-backdrop">
+        <div class="modal">
+            <header>
+                <h4 id="modalTitle">Service Title</h4>
+                <button class="close-btn" onclick="closeModal()" aria-label="Close modal">�</button>
+            </header>
+            <div class="body">
+                <p><strong>Price:</strong> <span id="modalPrice"></span></p>
+                <p><strong>Time:</strong> <span id="modalTime"></span></p>
+                <p><strong>Requirements:</strong> <span id="modalReq"></span></p>
+                <p><strong>Details:</strong> <span id="modalDetails"></span></p>
+                
+                <!-- Copy Button Moved to Bottom Right -->
+                <button class="copy-bottom-btn" id="modalCopyBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
+                        <path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1z"></path>
+                    </svg>
+                    Copy
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <a href="https://t.me/SellerRobert" target="_blank" rel="noopener nofollow" class="fab" title="Contact on Telegram" aria-label="Contact us on Telegram">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="28" height="28" viewBox="0 0 24 24" class="icon">
+            <path d="M9.036 15.273l-.398 5.602c.568 0 .814-.245 1.11-.54l2.665-2.557 5.527 4.035c1.014.56 1.735.266 1.99-.935l3.609-16.905c.321-1.49-.54-2.074-1.515-1.71l-21.32 8.232c-1.454.56-1.43 1.365-.248 1.731l5.448 1.704 12.646-7.974c.594-.392 1.136-.175.69.25"></path>
+        </svg>
+    </a>
+    
+    <a href="https://wa.me/919929015618" target="_blank" rel="noopener nofollow" class="fab-whatsapp" title="Chat on WhatsApp" aria-label="Chat with us on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="white" width="28" height="28" viewBox="0 0 32 32" class="icon">
+            <path d="M16.001 3.003c-7.168 0-13 5.832-13 13 0 2.287.6 4.522 1.735 6.48l-1.834 6.699 6.868-1.8a12.942 12.942 0 0 0 6.231 1.591c7.167 0 13-5.832 13-13s-5.833-13-13-13zm0 23.667a10.623 10.623 0 0 1-5.408-1.482l-.388-.23-4.073 1.067 1.088-3.973-.252-.408a10.637 10.637 0 0 1-1.632-5.651c0-5.876 4.783-10.66 10.661-10.66a10.572 10.572 0 0 1 7.538 3.127 10.572 10.572 0 0 1 3.123 7.533c0 5.877-4.783 10.66-10.656 10.66zm5.848-7.966c-.319-.159-1.888-.931-2.180-1.037-.292-.108-.505-.159-.717.159-.213.318-.823 1.037-1.009 1.250-.185.212-.371.239-.69.08-.319-.16-1.346-.496-2.563-1.583-.948-.846-1.588-1.889-1.774-2.207-.185-.318-.02-.49.14-.648.143-.142.319-.37.48-.555.159-.185.213-.318.319-.53.106-.213.053-.398-.026-.556-.079-.159-.717-1.732-.982-2.37-.258-.619-.52-.534-.717-.544l-.611-.011c-.213 0-.556.08-.848.398s-1.112 1.086-1.112 2.647 1.14 3.074 1.299 3.287c.159.212 2.247 3.43 5.448 4.805.762.328 1.355.525 1.819.671.765.244 1.459.210 2.009.127.613-.091 1.888-.771 2.154-1.516.265-.745.265-1.377.186-1.516-.079-.138-.292-.212-.611-.371z"></path>
+        </svg>
+    </a>
+
+    <script>
+    const modal = document.getElementById("serviceModal"),
+          modalTitle = document.getElementById("modalTitle"),
+          modalPrice = document.getElementById("modalPrice"),
+          modalTime = document.getElementById("modalTime"),
+          modalReq = document.getElementById("modalReq"),
+          modalDetails = document.getElementById("modalDetails"),
+          modalCopyBtn = document.getElementById("modalCopyBtn");
+    
+    // Theme toggle functionality
+    const themeToggle = document.getElementById("theme-switch");
+    
+    // Load saved preference
+    if (localStorage.getItem('theme') === 'light') {
+        document.body.classList.add('light-mode');
+        themeToggle.checked = true;
+    }
+    
+    themeToggle.addEventListener('change', () => {
+        if (themeToggle.checked) {
+            document.body.classList.add('light-mode');
+            localStorage.setItem('theme', 'light');
+        } else {
+            document.body.classList.remove('light-mode');
+            localStorage.setItem('theme', 'dark');
+        }
+    });
+    
+    // Services renderer (loads from /data/services.json)
+    async function renderServicesFromJson() {
+        const mount = document.getElementById("servicesGrid");
+        if (!mount) return;
+        try {
+            const res = await fetch("/data/services.json", { cache: "no-store" });
+            if (!res.ok) return; // fallback to any static HTML (if present)
+            const data = await res.json();
+            if (!data || data.version !== 1) return;
+
+            // Build cards
+            mount.innerHTML = "";
+            const sections = Array.isArray(data.sections) ? data.sections : [];
+            const services = Array.isArray(data.services) ? data.services : [];
+
+            // If user wants "no services", hide the whole services block.
+            const servicesTitle = document.getElementById("servicesTitle");
+            const servicesDivider = document.getElementById("servicesDivider");
+            const servicesSection = document.getElementById("services");
+            const shouldHide = sections.length === 0;
+            if (servicesTitle) servicesTitle.style.display = shouldHide ? "none" : "";
+            if (servicesDivider) servicesDivider.style.display = shouldHide ? "none" : "";
+            if (servicesSection) servicesSection.style.display = shouldHide ? "none" : "";
+            if (shouldHide) return;
+
+            const bySection = new Map();
+            for (const s of services) {
+                if (!bySection.has(s.sectionId)) bySection.set(s.sectionId, []);
+                bySection.get(s.sectionId).push(s);
+            }
+
+            for (const sec of sections) {
+                const card = document.createElement("article");
+                card.className = "card";
+
+                const badge = document.createElement("span");
+                badge.className = "badge";
+                badge.textContent = (sec.name || "").slice(0, 10) || "Services";
+
+                const h3 = document.createElement("h3");
+                h3.textContent = `${sec.name || "Services"} Services`;
+
+                const ul = document.createElement("ul");
+                ul.className = "services";
+
+                const list = (bySection.get(sec.id) || []).slice().sort((a, b) => (Number(a.sort || 0) - Number(b.sort || 0)));
+                for (const srv of list) {
+                    const li = document.createElement("li");
+                    li.setAttribute("data-service", srv.name || "");
+                    li.setAttribute("data-price", srv.price || "");
+                    li.setAttribute("data-time", srv.time || "");
+                    li.setAttribute("data-req", srv.requirements || "");
+                    li.setAttribute("data-details", srv.details || "");
+                    li.innerHTML = `${srv.name || "Service"} <span class="details-label">Click for details</span>`;
+                    ul.appendChild(li);
+                }
+
+                card.appendChild(badge);
+                card.appendChild(h3);
+                card.appendChild(ul);
+                mount.appendChild(card);
+            }
+        } catch (e) {
+            // ignore (keeps page working even without JSON)
+        }
+    }
+
+    // Event delegation for dynamically-rendered items
+    document.addEventListener("click", (e) => {
+        const li = e.target && e.target.closest ? e.target.closest(".services li") : null;
+        if (!li) return;
+        modalTitle.textContent = li.dataset.service || "Service Details";
+        modalPrice.textContent = li.dataset.price || "N/A";
+        modalTime.textContent = li.dataset.time || "N/A";
+        modalReq.textContent = li.dataset.req || "N/A";
+        modalDetails.textContent = li.dataset.details || "No additional details provided";
+        modal.style.display = "grid";
+        modal.focus();
+    });
+
+    // Close modal
+    function closeModal() {
+        modal.style.display = "none";
+    }
+    
+    // Close modal when clicking outside
+    window.onclick = e => {
+        if (e.target === modal) closeModal();
+    }
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "Escape" && modal.style.display === "grid") {
+            closeModal();
+        }
+    });
+    
+    // Copy to clipboard functionality
+    modalCopyBtn.addEventListener('click', () => {
+        const serviceTitle = modalTitle.textContent;
+        const price = modalPrice.textContent;
+        const time = modalTime.textContent;
+        const requirements = modalReq.textContent;
+        const details = modalDetails.textContent;
+        
+        const content = `Service: ${serviceTitle}\nPrice: ${price}\nTime: ${time}\nRequirements: ${requirements}\nDetails: ${details}`;
+        
+        navigator.clipboard.writeText(content).then(() => {
+            // Visual feedback
+            const originalHTML = modalCopyBtn.innerHTML;
+            modalCopyBtn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="white">
+                    <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                </svg>
+                Copied!
+            `;
+            
+            setTimeout(() => {
+                modalCopyBtn.innerHTML = originalHTML;
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    });
+    
+    // Lazy loading for service cards
+    document.addEventListener("DOMContentLoaded", function() {
+        renderServicesFromJson();
+        const cards = document.querySelectorAll('.card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        cards.forEach(card => {
+            card.style.opacity = 0;
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+        
+        // Testimonial slider functionality
+        const testimonialDots = document.querySelectorAll('.testimonial-dot');
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        
+        testimonialDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                // Update active dot
+                testimonialDots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                
+                // Show corresponding testimonial
+                testimonialCards.forEach(card => card.style.display = 'none');
+                testimonialCards[index].style.display = 'block';
+            });
+        });
+    });
+    
+    // Mobile responsiveness enhancements
+    function handleMobileLayout() {
+        if (window.innerWidth < 768) {
+            document.querySelectorAll('.card').forEach(card => {
+                card.style.margin = '10px 0';
+            });
+        }
+    }
+    
+    // Initial call and event listener for resizing
+    handleMobileLayout();
+    window.addEventListener('resize', handleMobileLayout);
+
+    </script>
+
+</body></html>
